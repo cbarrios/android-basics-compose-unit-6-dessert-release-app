@@ -43,7 +43,7 @@ class DessertReleaseViewModel(
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = DessertReleaseUiState()
+                initialValue = DessertReleaseUiState(isLoading = true)
             )
 
     /*
@@ -71,6 +71,7 @@ class DessertReleaseViewModel(
  */
 data class DessertReleaseUiState(
     val isLinearLayout: Boolean = true,
+    val isLoading: Boolean = false,
     val toggleContentDescription: Int =
         if (isLinearLayout) R.string.grid_layout_toggle else R.string.linear_layout_toggle,
     val toggleIcon: Int =

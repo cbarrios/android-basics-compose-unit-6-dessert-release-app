@@ -16,26 +16,13 @@
 
 package com.example.dessertrelease.ui
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -75,6 +62,7 @@ private fun DessertReleaseApp(
     modifier: Modifier = Modifier
 ) {
     val isLinearLayout = uiState.isLinearLayout
+    val isLoading = uiState.isLoading
     Scaffold(
         topBar = {
             TopAppBar(
@@ -95,11 +83,27 @@ private fun DessertReleaseApp(
             )
         }
     ) { innerPadding ->
-        if (isLinearLayout) {
-            DessertReleaseLinearLayout(modifier.padding(innerPadding))
+        if (isLoading) {
+            LoadingScreen(modifier.padding(innerPadding))
         } else {
-            DessertReleaseGridLayout(modifier.padding(innerPadding))
+            if (isLinearLayout) {
+                DessertReleaseLinearLayout(modifier.padding(innerPadding))
+            } else {
+                DessertReleaseGridLayout(modifier.padding(innerPadding))
+            }
         }
+    }
+}
+
+@Composable
+fun LoadingScreen(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
     }
 }
 
