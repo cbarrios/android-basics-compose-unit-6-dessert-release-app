@@ -24,7 +24,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.dessertrelease.DessertReleaseApplication
 import com.example.dessertrelease.R
-import com.example.dessertrelease.data.UserPreferencesRepository
+import com.example.dessertrelease.data.local.repository.UserPreferencesRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -60,7 +60,7 @@ class DessertReleaseViewModel(
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as DessertReleaseApplication)
-                DessertReleaseViewModel(application.userPreferencesRepository)
+                DessertReleaseViewModel(application.appContainer.userPreferencesRepository)
             }
         }
     }
